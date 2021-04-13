@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+
+{% endblock %}
+{% block title %}Quizz{% endblock %}
+
+{% block content %}
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<p>Score {{ correction['score'] }}</p>
+{% for question in questions %}
+    <p> {{ question.content }} </p>
+    <ul>
+    {% for answer in question.answers %}
+        {% if answer.id in correction['idsAnswersFalse'] %}
+            <li style='color:red'>{{ answer.content }} / {{ answer.correct }}</li>
+        {% elseif answer.correct == 1 and answer.id in correction['idsAnswersTrue'] %}
+             <li style='color:green'>{{ answer.content }} / {{ answer.correct }}</li>
+        {% elseif answer.correct == 1 and answer.id not in correction['idsAnswersTrue'] %}
+            <li style='color:purple'>{{ answer.content }} / {{ answer.correct }}</li>
+        {% else %}
+            <li>{{ answer.content }} / {{ answer.correct }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endfor %}
+
+{% endblock %}

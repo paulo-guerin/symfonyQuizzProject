@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# app_pole_dance_quizz:
+#    path: /question/list
+#    controller: App\Controller\QuestionController::questionsList

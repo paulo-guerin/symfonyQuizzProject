@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+
+{% endblock %}
+{% block title %}Quizz{% endblock %}
+
+{% block content %}
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+<form action="{{ path('quizz') }}" method='POST'>
+{% if questionsIds is defined %}
+    <input type="hidden" name="questionsIds" value='{{ questionsIds }}' >
+{% endif %}
+{% for question in questions %}
+    <p> {{ question.content }} </p>
+    {% for answer in question.answers %}
+        <div>
+            <input type="checkbox" id="answer{{ answer.id }}" name="{{ answer.id }}" value='1'>
+            <label for="answer{{ answer.id }}">{{ answer.content }} / {{ answer.correct }}</label>
+        </div>
+    {% endfor %}
+{% endfor %}
+<input type='submit' value= 'Valider vos réponses'>
+</form>
+{% endblock %}
